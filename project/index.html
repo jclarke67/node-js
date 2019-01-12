@@ -6,8 +6,7 @@
   crossorigin="anonymous"
 />
 <script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
   crossorigin="anonymous"
 ></script>
 <script
@@ -26,16 +25,27 @@
     <h1 class="display-4">Send Message</h1>
     <br />
     <input class="form-control" placeholder="Name" /> <br />
-    <button class="btn btn-success">Send</button>
+    <button id="send" class="btn btn-success">Send</button>
   </div>
   <div id="messages"></div>
 </div>
 <script>
   $(() => {
-    console.log("loaded");
+    $("#send").click(() => {
+      addMessages({ name: "Tim", message: "hello" });
+    });
+    getMessages();
   });
 
   function addMessages(message) {
-      $(#messages).append(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
+    $("#messages").append(
+      `<h4> ${message.name} </h4> <p> ${message.message} </p>`
+    );
+  }
+
+  function getMessages() {
+    $.get("http://localhost:3000/messages", data => {
+      data.forEach(addMessages);
+    });
   }
 </script>
